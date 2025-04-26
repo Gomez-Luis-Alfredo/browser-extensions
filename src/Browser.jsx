@@ -1,11 +1,12 @@
-import { useReducer, useState } from "react";
+
 import { AiFillCodeSandboxCircle } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { MdSunny } from "react-icons/md";
 import {data} from '../src/data/data.jsx'
 import Card from "./component/Card";
 import ButtonList from "./component/ButtonList.jsx";
-import { extentionReducer } from "./Reducer/extentionReducer.jsx";
+import { useState } from "react";
+
 
 
 
@@ -13,24 +14,18 @@ export default function Browser({toogleDisplayMode,darkMode}) {
     const allIsActive =[ 'All', ...new Set(data.map(dat => dat.isActive))]
     const [isActive, setIsActive] = useState(allIsActive)
     const [extenciones, setExtenciones] = useState(data)
-    const [data2, dispatch] = useReducer(extentionReducer,data)
-    console.log(allIsActive)
+    
+    
     
     const filterIsActive =(active)=>{
         if(active === 'All'){
             setExtenciones(data)
             return
         }const filteredData = data.filter(extencion => extencion.isActive === active)
-        console.log(filteredData)
+       
         setExtenciones(filteredData)
     }
-    const handleRemove = (id) =>{
-        dispatch({
-            type:'remove',
-            payload:id,
-        })
-
-    }
+    
     return (
         
         <div className="bg-slate-200 dark:bg-gradient-to-b from-slate-900 to-blue-900 ">
@@ -62,7 +57,7 @@ export default function Browser({toogleDisplayMode,darkMode}) {
                         name={dat.name}
                         description={dat.description}
                         isActive={dat.isActive}
-                        handleRemove={handleRemove}
+                        
                         />
                         ))
                      }
